@@ -12,8 +12,8 @@ project "Glm"
 	language      "C++"
 	cppdialect    "C++11"
 	staticruntime "on"
-	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}")
-	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}")
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
 
 	files {
 		"include/glm/**.hpp",
