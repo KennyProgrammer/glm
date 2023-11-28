@@ -72,7 +72,7 @@
 #define GLM_LANG_CXXMS			GLM_LANG_CXXMS_FLAG
 #define GLM_LANG_CXXGNU			GLM_LANG_CXXGNU_FLAG
 
-#if defined(_MSC_EXTENSIONS)
+#if (defined(_MSC_EXTENSIONS))
 #	define GLM_LANG_EXT GLM_LANG_CXXMS_FLAG
 #elif ((GLM_COMPILER & (GLM_COMPILER_CLANG | GLM_COMPILER_GCC)) && (GLM_ARCH & GLM_ARCH_SIMD_BIT))
 #	define GLM_LANG_EXT GLM_LANG_CXXMS_FLAG
@@ -142,10 +142,6 @@
 // Android has multiple STLs but C++11 STL detection doesn't always work #284 #564
 #if GLM_PLATFORM == GLM_PLATFORM_ANDROID && !defined(GLM_LANG_STL11_FORCED)
 #	define GLM_HAS_CXX11_STL 0
-#elif (GLM_COMPILER & GLM_COMPILER_CUDA_RTC) == GLM_COMPILER_CUDA_RTC
-#	define GLM_HAS_CXX11_STL 0
-#elif (GLM_COMPILER & GLM_COMPILER_HIP)
-#	define GLM_HAS_CXX11_STL 0
 #elif GLM_COMPILER & GLM_COMPILER_CLANG
 #	if (defined(_LIBCPP_VERSION) || (GLM_LANG & GLM_LANG_CXX11_FLAG) || defined(GLM_LANG_STL11_FORCED))
 #		define GLM_HAS_CXX11_STL 1
@@ -169,8 +165,7 @@
 #else
 #	define GLM_HAS_STATIC_ASSERT ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_VC)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_VC))))
 #endif
 
 // N1988
@@ -180,8 +175,7 @@
 #	define GLM_HAS_EXTENDED_INTEGER_TYPE (\
 		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_VC)) || \
 		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_CLANG)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP)))
+		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_CLANG)))
 #endif
 
 // N2672 Initializer lists http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2672.htm
@@ -193,8 +187,7 @@
 #	define GLM_HAS_INITIALIZER_LISTS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC15)) || \
 		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL14)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2544 Unrestricted unions http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2544.pdf
@@ -205,8 +198,7 @@
 #else
 #	define GLM_HAS_UNRESTRICTED_UNIONS (GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		(GLM_COMPILER & GLM_COMPILER_VC) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP)))
+		((GLM_COMPILER & GLM_COMPILER_CUDA)))
 #endif
 
 // N2346
@@ -218,8 +210,7 @@
 #	define GLM_HAS_DEFAULTED_FUNCTIONS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC12)) || \
 		((GLM_COMPILER & GLM_COMPILER_INTEL)) || \
-		(GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP)))
+		(GLM_COMPILER & GLM_COMPILER_CUDA)))
 #endif
 
 // N2118
@@ -230,8 +221,7 @@
 #else
 #	define GLM_HAS_RVALUE_REFERENCES ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_VC)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2437 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2437.pdf
@@ -243,8 +233,7 @@
 #	define GLM_HAS_EXPLICIT_CONVERSION_OPERATORS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL14)) || \
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC12)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2258 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf
@@ -256,8 +245,7 @@
 #	define GLM_HAS_TEMPLATE_ALIASES ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_INTEL)) || \
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC12)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2930 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2930.html
@@ -269,8 +257,7 @@
 #	define GLM_HAS_RANGE_FOR ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_INTEL)) || \
 		((GLM_COMPILER & GLM_COMPILER_VC)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2341 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2341.pdf
@@ -282,8 +269,7 @@
 #	define GLM_HAS_ALIGNOF ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL15)) || \
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC14)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 // N2235 Generalized Constant Expressions http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf
@@ -347,8 +333,7 @@
 #else
 #	define GLM_HAS_MAKE_SIGNED ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC12)) || \
-		((GLM_COMPILER & GLM_COMPILER_CUDA)) || \
-		((GLM_COMPILER & GLM_COMPILER_HIP))))
+		((GLM_COMPILER & GLM_COMPILER_CUDA))))
 #endif
 
 //
@@ -358,18 +343,6 @@
 		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC14) && (GLM_ARCH & GLM_ARCH_X86_BIT))))
 #else
 #	define GLM_HAS_BITSCAN_WINDOWS 0
-#endif
-
-#if GLM_LANG & GLM_LANG_CXX11_FLAG
-#	define GLM_HAS_NOEXCEPT 1
-#else
-#	define GLM_HAS_NOEXCEPT 0
-#endif
-
-#if GLM_HAS_NOEXCEPT
-#	define GLM_NOEXCEPT noexcept
-#else
-#	define GLM_NOEXCEPT
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -435,23 +408,9 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // Qualifiers
 
-// User defines: GLM_CUDA_FORCE_DEVICE_FUNC, GLM_CUDA_FORCE_HOST_FUNC
-
-#if (GLM_COMPILER & GLM_COMPILER_CUDA) || (GLM_COMPILER & GLM_COMPILER_HIP)
-#	if defined(GLM_CUDA_FORCE_DEVICE_FUNC) && defined(GLM_CUDA_FORCE_HOST_FUNC)
-#		error "GLM error: GLM_CUDA_FORCE_DEVICE_FUNC and GLM_CUDA_FORCE_HOST_FUNC should not be defined at the same time, GLM by default generates both device and host code for CUDA compiler."
-#	endif//defined(GLM_CUDA_FORCE_DEVICE_FUNC) && defined(GLM_CUDA_FORCE_HOST_FUNC)
-
-#	if defined(GLM_CUDA_FORCE_DEVICE_FUNC)
-#		define GLM_CUDA_FUNC_DEF __device__
-#		define GLM_CUDA_FUNC_DECL __device__
-#	elif defined(GLM_CUDA_FORCE_HOST_FUNC)
-#		define GLM_CUDA_FUNC_DEF __host__
-#		define GLM_CUDA_FUNC_DECL __host__
-#	else
-#		define GLM_CUDA_FUNC_DEF __device__ __host__
-#		define GLM_CUDA_FUNC_DECL __device__ __host__
-#	endif//defined(GLM_CUDA_FORCE_XXXX_FUNC)
+#if GLM_COMPILER & GLM_COMPILER_CUDA
+#	define GLM_CUDA_FUNC_DEF __device__ __host__
+#	define GLM_CUDA_FUNC_DECL __device__ __host__
 #else
 #	define GLM_CUDA_FUNC_DEF
 #	define GLM_CUDA_FUNC_DECL
@@ -460,11 +419,11 @@
 #if defined(GLM_FORCE_INLINE)
 #	if GLM_COMPILER & GLM_COMPILER_VC
 #		define GLM_INLINE __forceinline
-#		define GLM_NEVER_INLINE __declspec(noinline)
+#		define GLM_NEVER_INLINE __declspec((noinline))
 #	elif GLM_COMPILER & (GLM_COMPILER_GCC | GLM_COMPILER_CLANG)
 #		define GLM_INLINE inline __attribute__((__always_inline__))
 #		define GLM_NEVER_INLINE __attribute__((__noinline__))
-#	elif (GLM_COMPILER & GLM_COMPILER_CUDA) || (GLM_COMPILER & GLM_COMPILER_HIP)
+#	elif GLM_COMPILER & GLM_COMPILER_CUDA
 #		define GLM_INLINE __forceinline__
 #		define GLM_NEVER_INLINE __noinline__
 #	else
@@ -478,22 +437,6 @@
 
 #define GLM_FUNC_DECL GLM_CUDA_FUNC_DECL
 #define GLM_FUNC_QUALIFIER GLM_CUDA_FUNC_DEF GLM_INLINE
-
-// Do not use CUDA function qualifiers on CUDA compiler when functions are made default
-#if GLM_HAS_DEFAULTED_FUNCTIONS
-#	define GLM_DEFAULTED_FUNC_DECL
-#	define GLM_DEFAULTED_FUNC_QUALIFIER GLM_INLINE
-#else
-#	define GLM_DEFAULTED_FUNC_DECL GLM_FUNC_DECL
-#	define GLM_DEFAULTED_FUNC_QUALIFIER GLM_FUNC_QUALIFIER
-#endif//GLM_HAS_DEFAULTED_FUNCTIONS
-#if !defined(GLM_FORCE_CTOR_INIT)
-#	define GLM_DEFAULTED_DEFAULT_CTOR_DECL GLM_DEFAULTED_FUNC_DECL
-#	define GLM_DEFAULTED_DEFAULT_CTOR_QUALIFIER GLM_DEFAULTED_FUNC_QUALIFIER
-#else
-#	define GLM_DEFAULTED_DEFAULT_CTOR_DECL GLM_FUNC_DECL
-#	define GLM_DEFAULTED_DEFAULT_CTOR_QUALIFIER GLM_FUNC_QUALIFIER
-#endif//GLM_FORCE_CTOR_INIT
 
 ///////////////////////////////////////////////////////////////////////////////////
 // Swizzle operators
@@ -567,7 +510,7 @@
 #elif GLM_COMPILER & (GLM_COMPILER_GCC | GLM_COMPILER_CLANG | GLM_COMPILER_INTEL)
 #	define GLM_DEPRECATED __attribute__((__deprecated__))
 #	define GLM_ALIGNED_TYPEDEF(type, name, alignment) typedef type name __attribute__((aligned(alignment)))
-#elif (GLM_COMPILER & GLM_COMPILER_CUDA) || (GLM_COMPILER & GLM_COMPILER_HIP)
+#elif GLM_COMPILER & GLM_COMPILER_CUDA
 #	define GLM_DEPRECATED
 #	define GLM_ALIGNED_TYPEDEF(type, name, alignment) typedef type name __align__(x)
 #else
@@ -582,6 +525,48 @@
 #else
 #	define GLM_EXPLICIT
 #endif
+
+///////////////////////////////////////////////////////////////////////////////////
+// SYCL
+
+#if GLM_COMPILER==GLM_COMPILER_SYCL
+
+#include <CL/sycl.hpp>
+#include <limits>
+
+namespace glm {
+namespace std {
+	// Import SYCL's functions into the namespace glm::std to force their usages.
+	// It's important to use the math built-in function (sin, exp, ...)
+	// of SYCL instead the std ones.
+	using namespace cl::sycl;
+
+	///////////////////////////////////////////////////////////////////////////////
+	// Import some "harmless" std's stuffs used by glm into
+	// the new glm::std namespace.
+	template<typename T>
+	using numeric_limits = ::std::numeric_limits<T>;
+
+	using ::std::size_t;
+
+	using ::std::uint8_t;
+	using ::std::uint16_t;
+	using ::std::uint32_t;
+	using ::std::uint64_t;
+
+	using ::std::int8_t;
+	using ::std::int16_t;
+	using ::std::int32_t;
+	using ::std::int64_t;
+
+	using ::std::make_unsigned;
+	///////////////////////////////////////////////////////////////////////////////
+} //namespace std
+} //namespace glm
+
+#endif
+
+///////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////
 // Length type: all length functions returns a length_t type.
@@ -821,20 +806,12 @@ namespace detail
 ///////////////////////////////////////////////////////////////////////////////////
 // Configure the use of defaulted function
 
-#if GLM_HAS_DEFAULTED_FUNCTIONS
+#if GLM_HAS_DEFAULTED_FUNCTIONS && GLM_CONFIG_CTOR_INIT == GLM_CTOR_INIT_DISABLE
 #	define GLM_CONFIG_DEFAULTED_FUNCTIONS GLM_ENABLE
 #	define GLM_DEFAULT = default
 #else
 #	define GLM_CONFIG_DEFAULTED_FUNCTIONS GLM_DISABLE
 #	define GLM_DEFAULT
-#endif
-
-#if GLM_CONFIG_CTOR_INIT == GLM_CTOR_INIT_DISABLE && GLM_CONFIG_DEFAULTED_FUNCTIONS == GLM_ENABLE
-#	define GLM_CONFIG_DEFAULTED_DEFAULT_CTOR GLM_ENABLE
-#	define GLM_DEFAULT_CTOR GLM_DEFAULT
-#else
-#	define GLM_CONFIG_DEFAULTED_DEFAULT_CTOR GLM_DISABLE
-#	define GLM_DEFAULT_CTOR
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -983,8 +960,6 @@ namespace detail
 	// Report compiler detection
 #	if GLM_COMPILER & GLM_COMPILER_CUDA
 #		pragma message("GLM: CUDA compiler detected")
-#	elif GLM_COMPILER & GLM_COMPILER_HIP
-#		pragma message("GLM: HIP compiler detected")
 #	elif GLM_COMPILER & GLM_COMPILER_VC
 #		pragma message("GLM: Visual C++ compiler detected")
 #	elif GLM_COMPILER & GLM_COMPILER_CLANG
